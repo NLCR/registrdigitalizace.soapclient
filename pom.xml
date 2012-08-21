@@ -122,6 +122,12 @@
                 <version>2.12</version>
                 <configuration>
                     <argLine>-Djava.endorsed.dirs="${endorsed.dir}"</argLine>
+                    <systemPropertyVariables>
+                        <!-- set with -Dcz.registrdigitalizace.soapclient.url=URL or declare profile in settings.xml -->
+                        <cz.registrdigitalizace.soapclient.url>${cz.registrdigitalizace.soapclient.url}</cz.registrdigitalizace.soapclient.url>
+                        <cz.registrdigitalizace.soapclient.user>${cz.registrdigitalizace.soapclient.user}</cz.registrdigitalizace.soapclient.user>
+                        <cz.registrdigitalizace.soapclient.passwd>${settings.cz.registrdigitalizace.soapclient.passwd}</cz.registrdigitalizace.soapclient.passwd>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

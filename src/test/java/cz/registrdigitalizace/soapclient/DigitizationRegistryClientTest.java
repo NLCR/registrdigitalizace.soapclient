@@ -33,27 +33,29 @@ import javax.xml.transform.stream.StreamResult;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * TODO: link URL, user and passwd with POM and system properties
+ * Functional tests.
  *
  * @author Jan Pokorsky
  */
-@Ignore
 public class DigitizationRegistryClientTest {
 
     private DigitizationRegistry registery;
-    private String url;
+    private static String url;
 
     public DigitizationRegistryClientTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
+        url = System.getProperty("cz.registrdigitalizace.soapclient.url");
+        System.out.printf("url: '%s'\n", url);
+        Assume.assumeNotNull(url);
     }
 
     @AfterClass
@@ -62,9 +64,9 @@ public class DigitizationRegistryClientTest {
 
     @Before
     public void setUp() throws MalformedURLException {
-        url = null;
-        String user = "XXX";
-        String passwd = "XXX";
+        String user = System.getProperty("cz.registrdigitalizace.soapclient.user");
+//        System.out.printf("user: '%s'\n", user);
+        String passwd = System.getProperty("cz.registrdigitalizace.soapclient.passwd");
         DigitizationRegistryClient instance = new DigitizationRegistryClient(url, user, passwd);
         registery = instance.getRegistery();
         assertNotNull(registery);
@@ -74,17 +76,10 @@ public class DigitizationRegistryClientTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getRegistery method, of class DigitizationRegistryClient.
-     */
     @Test
-    public void testGetRegistery() throws DigitizationRegistryException_Exception, UnsupportedEncodingException {
-        System.out.println("getRegistery");
+    public void testfindRecords() throws DigitizationRegistryException_Exception, UnsupportedEncodingException {
         PlainQuery query = new PlainQuery();
-//        query.setBarcode("1001742037");
         query.setBarcode("26005405857");
-        // TODO review the generated test code and remove the default call to fail.
-        //        fail("The test case is a prototype.");
         List<DigitizationRecord> records = registery.findRecords(query, RecordFormat.MARC_XML);
         assertNotNull(records);
         assertFalse(records.isEmpty());
