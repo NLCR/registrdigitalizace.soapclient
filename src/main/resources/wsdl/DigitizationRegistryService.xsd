@@ -57,7 +57,7 @@
         <xs:sequence>
             <xs:element name="recordId" type="xs:int" />
             <xs:element name="state" type="tns:digitizationState" />
-            <xs:element name="descriptor" type="xs:base64Binary" minOccurs="0" />
+            <xs:element name="descriptor" ns1:expectedContentTypes="application/xml" type="xs:base64Binary" minOccurs="0" xmlns:ns1="http://www.w3.org/2005/05/xmlmime"/>
         </xs:sequence>
     </xs:complexType>
 

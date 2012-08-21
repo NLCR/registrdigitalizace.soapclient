@@ -21,9 +21,15 @@ import cz.registrdigitalizace.soapservices.DigitizationRegistry;
 import cz.registrdigitalizace.soapservices.DigitizationRegistryException_Exception;
 import cz.registrdigitalizace.soapservices.PlainQuery;
 import cz.registrdigitalizace.soapservices.RecordFormat;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -86,9 +92,22 @@ public class DigitizationRegistryClientTest {
         for (DigitizationRecord record : records) {
             System.out.println("recordId: " + record.getRecordId());
             System.out.println("recordState: " + record.getState());
-            String desc = record.getDescriptor() == null
-                    ? "null" : new String(record.getDescriptor(), "UTF-8");
-            System.out.println("recordState: " + desc);
+            System.out.println("descriptor: " + dump(record.getDescriptor()));
+        }
+    }
+
+    private static String dump(Source src) {
+        if (src == null) {
+            return null;
+        }
+        try {
+            TransformerFactory fact = TransformerFactory.newInstance();
+            Transformer t = fact.newTransformer();
+            StringWriter dump = new StringWriter();
+            t.transform(src, new StreamResult(dump));
+            return dump.toString();
+        } catch (TransformerException ex) {
+            throw new IllegalStateException(ex);
         }
     }
 }
