@@ -80,7 +80,8 @@ public class DigitizationRegistryClientTest {
     public void testfindRecords() throws DigitizationRegistryException_Exception, UnsupportedEncodingException {
         PlainQuery query = new PlainQuery();
         query.setBarcode("26005405857");
-        List<DigitizationRecord> records = registery.findRecords(query, RecordFormat.MARC_XML);
+//        query.setSignature("MIKROF 225");
+        List<DigitizationRecord> records = registery.findRecords(query, RecordFormat.MARC_XML, null);
         assertNotNull(records);
         assertFalse(records.isEmpty());
         System.out.println("record.size: " + records.size());
