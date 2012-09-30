@@ -19,12 +19,14 @@ package cz.registrdigitalizace.soapclient;
 import cz.registrdigitalizace.soapservices.DigitizationRecord;
 import cz.registrdigitalizace.soapservices.DigitizationRegistry;
 import cz.registrdigitalizace.soapservices.DigitizationRegistryException_Exception;
+import cz.registrdigitalizace.soapservices.DigitizationState;
 import cz.registrdigitalizace.soapservices.PlainQuery;
 import cz.registrdigitalizace.soapservices.RecordFormat;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -90,6 +92,19 @@ public class DigitizationRegistryClientTest {
             System.out.println("recordState: " + record.getState());
             System.out.println("descriptor: " + dump(record.getDescriptor()));
         }
+    }
+
+    @Test
+    public void testGetRecordState() throws DigitizationRegistryException_Exception, UnsupportedEncodingException, DatatypeConfigurationException {
+        DigitizationState recordState = registery.getRecordState(45704);
+        System.out.println("state: " + recordState);
+        assertNotNull(recordState);
+    }
+
+    @Test(expected = DigitizationRegistryException_Exception.class)
+    public void testSetRecordStateFail() throws DigitizationRegistryException_Exception, UnsupportedEncodingException, DatatypeConfigurationException {
+        boolean result = registery.setRecordState(45704, null, null, null, null);
+        System.out.println("result: " + result);
     }
 
     private static String dump(Source src) {
