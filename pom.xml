@@ -19,8 +19,8 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:http://registrdigitalizace.googlecode.com/svn/soapclient/trunk</connection>
-        <developerConnection>scm:svn:https://registrdigitalizace.googlecode.com/svn/soapclient/trunk</developerConnection>
+        <connection>scm:git:https://code.google.com/p/registrdigitalizace.soapclient</connection>
+        <developerConnection>scm:git:https://code.google.com/p/registrdigitalizace.soapclient</developerConnection>
     </scm>
 
     <properties>
