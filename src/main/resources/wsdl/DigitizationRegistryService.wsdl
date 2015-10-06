@@ -3,6 +3,11 @@
 
 Changes:
 
+1.2:
+===
+- /definitions/types/schema/complexType[@name="plainQuery"]
+    added "pole001" element
+
 1.1:
 ===
 - /definitions/types/schema/complexType[@name="findRecords"]
